@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LCS Documentation</title>
+  <style>
+    :root{
+        --bg:           #111111;
+        --text:         #e1e1e1;
+        --text-hover:   #009AC7;
+        --subtext:      #9b9b9b;
+        --border:       #2c2c2c;
+        --card-bg:      #1c1c1c;
+        --card-hover:   #2c2c2c;
+
+        --tile-width:           600px;
+    }
+    body{
+        background-color: var(--bg);
+        color: var(--text);
+        font-family: system-ui, sans-serif;
+        max-width: var(--tile-width);
+        margin: 0 auto;
+        padding: 40px 20px;
+        line-height: 1.5;
+    }
+    header{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        margin-bottom: 30px;
+    }
+        .header-icon {
+        width: 96px;
+        height: 96px;
+        object-fit: contain;
+    }
+
+    .header-text h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    .header-text p {
+        font-size: 1.25rem;
+        color: var(--subtext);
+        margin: 0;
+    }
+
+    .tile{
+        background-color: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 10px 15px;
+        width: var(--tile-width);
+    }
+    .tile-title{
+        color: var(--text);
+        font-size: 1.25rem;
+        font-weight: normal;
+        margin: 20px 0 8px 0;
+        padding-left: 10px;
+        width: var(--tile-width);
+    }
+    
+
+    .link-row{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 8px 0;
+    }
+
+    .link-row a{
+        color: var(--subtext);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+    .link-row a:hover{
+        color: var(--text);
+        text-decoration: none;
+    }
+
+    .icon{
+        width: 20px;
+        height: 20px;
+        fill: var(--subtext);
+        display: block;
+    }
+
+  </style>
+</head>
+<body>
+    <header>
+        <img src="dobromir.ico" alt="LCS Logo" class="header-icon">
+        <div class="header-text">
+            <h1 title="Does anything but actually controlling a laser">Laser Control System</h1>
+            <p>Documentation</p>
+        </div>
+    </header>
+
+    
+    <main>
+        <h2 class="tile-title">Links</h2>
+        <div class="tile">
+            <link-templ href="http://lcs.ktp.pwr.edu.pl:8123/" icon="icon-link" title="Homeassistant dashboards">LCS Dashboard</link-templ>
+            <link-templ href="http://lcs.ktp.pwr.edu.pl:8124/" icon="icon-link" title="CSV access">Filebrowser</link-templ>
+            <link-templ href="http://lcs.ktp.pwr.edu.pl:8125/index.html" icon="icon-link" title="This page (standalone access)">Documentation</link-templ>
+        </div>
+
+        <h2 class="tile-title">LCS Chamber Device</h2>
+        <div class="tile">
+            <link-templ href="http://lcs.ktp.pwr.edu.pl:8125/Manual.pdf" icon="icon-doc" title="Document explaining installation and usage">User's manual</link-templ>
+            <link-templ href="https://github.com/LCS-Development-Group/ESP_software" icon="icon-git" title="ESP32 code repo">Microcontroller code</link-templ>
+            <link-templ href="https://github.com/LCS-Development-Group/Bridge_app/releases/" icon="icon-git" title="Setup file (for Windows)">Bridge download</link-templ>
+        </div>
+
+        <h2 class="tile-title">Homeassistant</h2>
+        <div class="tile">
+        <link-templ href="https://github.com/LCS-Development-Group/HomeAssistant" icon="icon-git" title="">Backup and deployment scripts</link-templ>
+        </div>
+
+        <h2 class="tile-title">Raspberry Pi 5</h2>
+        <div class="tile">
+        <link-templ href="https://github.com/LCS-Development-Group/Python_scripts" icon="icon-git" title="daemons, setup scripts etc.">Python Scripts</link-templ>
+        </div>
+
+        <h2 class="tile-title">Lab RH/T Station</h2>
+        <div class="tile">
+        <link-templ href="https://github.com/LCS-Development-Group/Lab_RHT_station_ESP32" icon="icon-git" title="ESP32 code repo">Microcontroller code</link-templ>
+        </div>
+
+        <h2 class="tile-title">Mode-Lock Starter</h2>
+        <div class="tile">
+        <link-templ href="https://github.com/LCS-Development-Group/ML_starter" icon="icon-git" title="ESP32 code repo">Microcontroller code</link-templ>
+        </div>
+
+        <!--
+        Copy this:
+        <h2 class="tile-title">Raspberry Pi 5</h2>
+        <div class="tile">
+            <link-templ href="http://lcs.ktp.pwr.edu.pl:8125/Manual.pdf" icon="icon-none" title="hover text">link text</link-templ>
+        </div>
+        -->
+    </main>
+    <script>
+
+    //link entry automation
+    class LinkTemplate extends HTMLElement 
+    {
+        connectedCallback() 
+        {
+            const href = this.getAttribute('href');
+            const icon = this.getAttribute('icon');
+            const title = this.getAttribute('title') || '';
+            const label = this.textContent;
+
+            this.removeAttribute('title');
+
+            this.innerHTML=`
+                <div class="link-row">
+                    <a href="${href}" title="${title}">
+                        <svg class="icon"><use href="#${icon}"/></svg>
+                        <span>${label}</span>
+                    </a>
+                </div>
+            `;
+        }
+    }
+    customElements.define('link-templ', LinkTemplate);
+    </script>
+    
+    <!--Icon definitions (as vector images)-->
+    <svg style="display: none;">
+        <symbol id="icon-doc" viewBox="0 0 24 24">
+            <path path d="M6,2A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2H6M6,4H13V9H18V20H6V4M8,12V14H16V12H8M8,16V18H13V16H8Z"/>
+        </symbol>
+
+        <symbol id="icon-copy" viewBox="0 0 24 24">
+            <path d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/>
+        </symbol>
+
+        <symbol id="icon-git" viewBox="0 0 24 24">
+            <path d="M2.6,10.59L8.38,4.8L10.07,6.5C9.83,7.35 10.22,8.28 11,8.73V14.27C10.4,14.61 10,15.26 10,16A2,2 0 0,0 12,18A2,2 0 0,0 14,16C14,15.26 13.6,14.61 13,14.27V9.41L15.07,11.5C15,11.65 15,11.82 15,12A2,2 0 0,0 17,14A2,2 0 0,0 19,12A2,2 0 0,0 17,10C16.82,10 16.65,10 16.5,10.07L13.93,7.5C14.19,6.57 13.71,5.55 12.78,5.16C12.35,5 11.9,4.96 11.5,5.07L9.8,3.38L10.59,2.6C11.37,1.81 12.63,1.81 13.41,2.6L21.4,10.59C22.19,11.37 22.19,12.63 21.4,13.41L13.41,21.4C12.63,22.19 11.37,22.19 10.59,21.4L2.6,13.41C1.81,12.63 1.81,11.37 2.6,10.59Z"/>
+        </symbol>
+
+        <symbol id="icon-link" viewBox="0 0 24 24">
+            <path d="M3.9,12C3.9,10.29 5.29,8.9 7,8.9H11V7H7A5,5 0 0,0 2,12A5,5 0 0,0 7,17H11V15.1H7C5.29,15.1 3.9,13.71 3.9,12M8,13H16V11H8V13M17,7H13V8.9H17C18.71,8.9 20.1,10.29 20.1,12C20.1,13.71 18.71,15.1 17,15.1H13V17H17A5,5 0 0,0 22,12A5,5 0 0,0 17,7Z"/>
+        </symbol>
+
+        <symbol id="icon-none" viewBox="0 0 24 24">
+            <path d="M12,10A2,2 0 0,0 10,12C10,13.11 10.9,14 12,14C13.11,14 14,13.11 14,12A2,2 0 0,0 12,10Z"/>
+        </symbol>
+    </svg>
+</body>
+</html>
+
+
+
