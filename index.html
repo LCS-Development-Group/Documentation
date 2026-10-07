@@ -132,6 +132,7 @@
 
         <h2 class="tile-title">Lab RH/T Station</h2>
         <div class="tile">
+        <link-templ href="http://lcs.ktp.pwr.edu.pl:8125/LCS_labstat.pdf" icon="icon-doc" title="Usage and installation">User's Manual</link-templ>
         <link-templ href="https://github.com/LCS-Development-Group/Lab_RHT_station_ESP32" icon="icon-git" title="ESP32 code repo">Microcontroller code</link-templ>
         </div>
 
@@ -164,7 +165,7 @@
 
             this.innerHTML=`
                 <div class="link-row">
-                    <a href="${href}" title="${title}">
+                    <a href="${href}" target="_blank" title="${title}">
                         <svg class="icon"><use href="#${icon}"/></svg>
                         <span>${label}</span>
                     </a>
