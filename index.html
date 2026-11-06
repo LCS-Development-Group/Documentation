@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LCS Documentation</title>
   <style>
-    :root{
+    :root{/*defualt dark-theme*/
         --bg:           #111111;
         --text:         #e1e1e1;
         --text-hover:   #009AC7;
@@ -15,6 +15,17 @@
         --card-hover:   #2c2c2c;
 
         --tile-width:           600px;
+    }
+    @media (prefers-color-scheme: light) {
+        :root {
+            --bg:           #fafafa;
+            --text:         #212121;
+            --text-hover:   #03a9f4;
+            --subtext:      #727272;
+            --border:       #e0e0e0;
+            --card-bg:      #ffffff;
+            --card-hover:   #f5f5f5;
+        }
     }
     body{
         background-color: var(--bg);
@@ -128,6 +139,7 @@
         <h2 class="tile-title">Raspberry Pi 5</h2>
         <div class="tile">
         <link-templ href="https://github.com/LCS-Development-Group/Python_scripts" icon="icon-git" title="daemons, setup scripts etc.">Python Scripts</link-templ>
+        <link-templ href="https://github.com/LCS-Development-Group/RP5_daemons" icon="icon-git" title="daemon service config">Daemons</link-templ>
         </div>
 
         <h2 class="tile-title">Lab RH/T Station</h2>
